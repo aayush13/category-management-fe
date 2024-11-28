@@ -71,7 +71,15 @@ const CategoryFrom = (props) => {
           parent: docToUpdate.value,
         }),
       })
-        .then((res) => res.json())
+        .then((res) =>{
+            if (!res.ok) {
+                let err = new Error("HTTP status code: " + response.status)
+                err.response = response
+                err.status = response.status
+                throw err
+            }
+            return res.json()
+        } )
         .then((data) => {
           props.updateTree(!props.updateStatus);
         })
