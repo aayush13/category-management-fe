@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Select from "react-select";
 import "./index.css";
-
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const CategoryFrom = (props) => {
   const [categoryName, setCategoryName] = useState("");
@@ -45,7 +45,7 @@ const CategoryFrom = (props) => {
     e.preventDefault();
     console.log(categoryName, selectedCategory, mode);
     if (mode.value == "create") {
-      fetch("http://localhost:3000/api/categories/create", {
+      fetch(`${apiUrl}/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const CategoryFrom = (props) => {
         .catch((err) => alert("Error", err));
     }
     if (mode.value == "update") {
-      fetch(`http://localhost:3000/api/categories/update/${selectedCategory.value}`, {
+      fetch(`${apiUrl}/update/${selectedCategory.value}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const CategoryFrom = (props) => {
     }
     if (mode.value == "delete") {
       fetch(
-        `http://localhost:3000/api/categories/delete/${selectedCategory.value}`,
+        `${apiUrl}/delete/${selectedCategory.value}`,
         {
           method: "DELETE",
           headers: {

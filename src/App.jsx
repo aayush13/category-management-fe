@@ -3,13 +3,15 @@ import './App.css'
 import CategoryTree from './components/categoryTree';
 import CategoryFrom from './components/categoryForm';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 function App() {
   const [categories, setCategories] = useState([]);
   const [dropdownData, setDropdownData] = useState([]);
   const [updateTree, setUpdateTree] = useState(true)
 
   useEffect(()=> {
-    fetch("http://localhost:3000/api/categories/")
+    fetch(`${apiUrl}/`)
     .then((res) => res.json())
     .then((data) => {
       setDropdownData([...[], ...data])
@@ -20,7 +22,7 @@ function App() {
   },[updateTree])
   
   useEffect(()=> {
-    fetch("http://localhost:3000/api/categories/tree")
+    fetch(`${apiUrl}/tree`)
       .then((res) => res.json())
       .then((data) => {
         setCategories([...[], ...data])
