@@ -1,0 +1,21 @@
+.category-name-container {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+}
+
+.form-container {
+    width: 50%;
+}
+.category-form {
+    padding: 3rem;
+}
+
+#category-dropdown{
+    padding-bottom: 1rem;
+}
+
+#mode-dropdown {
+    padding-bottom: 1rem;
+}
+
