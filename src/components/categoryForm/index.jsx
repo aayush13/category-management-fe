@@ -140,7 +140,7 @@ const CategoryFrom = (props) => {
           value={mode}
           placeholder="Choose a mode..."
         />
-        <label id="category" htmlFor="category-dropdown">
+        <label id="category">
           Select a category/subcategory **
         </label>
         <Select
