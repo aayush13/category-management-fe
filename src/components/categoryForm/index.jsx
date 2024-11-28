@@ -44,21 +44,26 @@ const CategoryFrom = (props) => {
   const submitForm = (e) => {
     e.preventDefault();
     if (mode.value == "create") {
-      fetch(`${apiUrl}/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: categoryName,
-          parent: selectedCategory.value,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          props.updateTree(!props.updateStatus);
+      if(selectedCategory.label.toLowerCase() != categoryName.toLowerCase()) {
+        fetch(`${apiUrl}/create`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: categoryName,
+            parent: selectedCategory.value,
+          }),
         })
-        .catch((err) => alert("Error", err));
+          .then((res) => res.json())
+          .then((data) => {
+            props.updateTree(!props.updateStatus);
+          })
+          .catch((err) => alert("Error", err));
+      } else {
+        alert("Same category name")
+      }
+      
     }
     if (mode.value == "update") {
       fetch(`${apiUrl}/update/${selectedCategory.value}`, {
