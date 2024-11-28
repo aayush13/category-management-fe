@@ -58,7 +58,6 @@ const CategoryFrom = (props) => {
         .then((res) => res.json())
         .then((data) => {
           props.updateTree(!props.updateStatus);
-          alert("Success", data);
         })
         .catch((err) => alert("Error", err));
     }
@@ -76,7 +75,6 @@ const CategoryFrom = (props) => {
         .then((res) => res.json())
         .then((data) => {
           props.updateTree(!props.updateStatus);
-          alert("Success", data);
         })
         .catch((err) => alert("Error", err));
     }
@@ -93,7 +91,6 @@ const CategoryFrom = (props) => {
         .then((res) => res.json())
         .then((data) => {
           props.updateTree(!props.updateStatus);
-          alert("Success", data);
         })
         .catch((err) => alert("Error", err));
     }
