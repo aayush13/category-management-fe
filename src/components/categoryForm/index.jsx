@@ -43,7 +43,6 @@ const CategoryFrom = (props) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log(categoryName, selectedCategory, mode);
     if (mode.value == "create") {
       fetch(`${apiUrl}/create`, {
         method: "POST",
