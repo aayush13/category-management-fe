@@ -1,6 +1,6 @@
 import './index.css'
 
-const CategoryTree = (props) => {
+const CategoryTree = ({categoryData}) => {
     const printTree = (categories, depth = 0) => {
         return categories.map((category) => (
           <div key={category._id} style={{marginLeft:depth *20}} className='categoryTree'>
@@ -13,7 +13,7 @@ const CategoryTree = (props) => {
 
     return (
         <div className="tree-container">
-            {props.categoryData.length ? printTree(props.categoryData): <h2>No category data available</h2>}
+            {categoryData.length ? printTree(categoryData): <h2>No category data available</h2>}
         </div>
     ) 
 }

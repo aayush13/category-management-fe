@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Select from "react-select";
 import "./index.css";
+import MODE from "../../constants";
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const CategoryFrom = (props) => {
+const CategoryFrom = ({data, updateTree, updateStatus}) => {
   const [categoryName, setCategoryName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [docToUpdate, setDocToUpdate] = useState(null);
@@ -14,7 +15,7 @@ const CategoryFrom = (props) => {
   };
 
   const findElement = (id) => {
-    return props.data.filter(x => x._id ==id)[0]
+    return data.filter(x => x._id ==id)[0]
   }
   const handleCategoryChange = (selected) => {
     setSelectedCategory(selected);
@@ -57,14 +58,15 @@ const CategoryFrom = (props) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            props.updateTree(!props.updateStatus);
+            updateTree(!updateStatus);
           })
           .catch((err) => alert("Error", err));
       } else {
         alert("Same category name")
-      }
-      
+      } 
     }
+
+
     if (mode.value == "update") {
       fetch(`${apiUrl}/update/${selectedCategory.value}`, {
         method: "PUT",
@@ -86,10 +88,11 @@ const CategoryFrom = (props) => {
             return res.json()
         } )
         .then((data) => {
-          props.updateTree(!props.updateStatus);
+          updateTree(!updateStatus);
         })
         .catch((err) => alert("Error", err));
     }
+
     if (mode.value == "delete") {
       fetch(
         `${apiUrl}/delete/${selectedCategory.value}`,
@@ -102,7 +105,7 @@ const CategoryFrom = (props) => {
       )
         .then((res) => res.json())
         .then((data) => {
-          props.updateTree(!props.updateStatus);
+          updateTree(!updateStatus);
         })
         .catch((err) => alert("Error", err));
     }
@@ -111,21 +114,7 @@ const CategoryFrom = (props) => {
     setMode({ value: "show" });
   };
 
-  const modes = [
-    {
-      value: "create",
-      label: "Create",
-    },
-    {
-      value: "update",
-      label: "Update",
-    },
-    {
-      value: "delete",
-      label: "Delete",
-    },
-  ];
-  const categoryOptions = props.data.map((category) => ({
+  const categoryOptions = data.map((category) => ({
     value: category._id,
     parent: category.parent,
     label: category.name,
@@ -135,7 +124,7 @@ const CategoryFrom = (props) => {
     label: "Parent node/ No selection",
   });
 
-  const modeOptions = modes.map((item) => ({
+  const modeOptions = MODE.map((item) => ({
     value: item.value,
     label: item.label,
   }));
@@ -170,6 +159,7 @@ const CategoryFrom = (props) => {
             </label>
             <input
               id="categoryName"
+              className="form-control"
               value={categoryName}
               name="categoryName"
               onChange={handleCategoryName}
