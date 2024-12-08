@@ -2,6 +2,7 @@ import { useState } from "react";
 import Select from "react-select";
 import "./index.css";
 import MODE from "../../constants";
+import {create, update} from "../../utils";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const CategoryFrom = ({data, updateTree, updateStatus}) => {
@@ -46,69 +47,20 @@ const CategoryFrom = ({data, updateTree, updateStatus}) => {
     e.preventDefault();
     if (mode.value == "create") {
       if(selectedCategory.label.toLowerCase() != categoryName.toLowerCase()) {
-        fetch(`${apiUrl}/create`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: categoryName,
-            parent: selectedCategory.value,
-          }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            updateTree(!updateStatus);
-          })
-          .catch((err) => alert("Error", err));
+        create(apiUrl, categoryName ,selectedCategory.value, updateTree, updateStatus)
       } else {
         alert("Same category name")
       } 
     }
 
-
     if (mode.value == "update") {
-      fetch(`${apiUrl}/update/${selectedCategory.value}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: categoryName,
-          parent: docToUpdate.value,
-        }),
-      })
-        .then((res) =>{
-            if (!res.ok) {
-                let err = new Error("HTTP status code: " + response.status)
-                err.response = response
-                err.status = response.status
-                throw err
-            }
-            return res.json()
-        } )
-        .then((data) => {
-          updateTree(!updateStatus);
-        })
-        .catch((err) => alert("Error", err));
+      update(apiUrl, categoryName ,selectedCategory.value, updateTree, updateStatus) 
     }
 
     if (mode.value == "delete") {
-      fetch(
-        `${apiUrl}/delete/${selectedCategory.value}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          updateTree(!updateStatus);
-        })
-        .catch((err) => alert("Error", err));
+      deleteCategory(apiUrl ,selectedCategory.value, updateTree, updateStatus)
     }
+
     setCategoryName("");
     setSelectedCategory(null);
     setMode({ value: "show" });
