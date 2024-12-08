@@ -1,4 +1,4 @@
-export default function create(apiUrl, categoryName,selectedCategory, updateTree,updateStatus) {
+export function create(apiUrl, categoryName,selectedCategory, updateTree,updateStatus) {
     fetch(`${apiUrl}/create`, {
         method: "POST",
         headers: {
@@ -17,7 +17,7 @@ export default function create(apiUrl, categoryName,selectedCategory, updateTree
 }
 
 
-export default function update(apiUrl, categoryName,selectedCategory, updateTree,updateStatus) {
+export function update(apiUrl, categoryName,selectedCategory,docToUpdate, updateTree,updateStatus) {
     fetch(`${apiUrl}/update/${selectedCategory}`, {
         method: "PUT",
         headers: {
@@ -25,15 +25,14 @@ export default function update(apiUrl, categoryName,selectedCategory, updateTree
         },
         body: JSON.stringify({
           name: categoryName,
-          parent: docToUpdate.value,
+          parent: docToUpdate,
         }),
       })
         .then((res) =>{
             if (!res.ok) {
-                let err = new Error("HTTP status code: " + response.status)
-                err.response = response
-                err.status = response.status
-                err.message="Invalid data/input"
+                let err = new Error("HTTP status code: " + res.status + "\n" + "Invalid data/input")
+                err.response = res
+                err.status = res.status
                 throw err
             }
             return res.json()
@@ -44,7 +43,7 @@ export default function update(apiUrl, categoryName,selectedCategory, updateTree
         .catch((err) => alert("Error", err.message));
 }
 
-export default function deleteCategory(apiUrl,selectedCategory, updateTree,updateStatus) {
+export function deleteCategory(apiUrl,selectedCategory, updateTree,updateStatus) {
     fetch(
         `${apiUrl}/delete/${selectedCategory.value}`,
         {

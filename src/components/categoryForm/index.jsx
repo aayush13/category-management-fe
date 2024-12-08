@@ -54,7 +54,7 @@ const CategoryFrom = ({data, updateTree, updateStatus}) => {
     }
 
     if (mode.value == "update") {
-      update(apiUrl, categoryName ,selectedCategory.value, updateTree, updateStatus) 
+      update(apiUrl, categoryName ,selectedCategory.value, docToUpdate.value, updateTree, updateStatus) 
     }
 
     if (mode.value == "delete") {
