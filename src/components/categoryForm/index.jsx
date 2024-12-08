@@ -2,7 +2,7 @@ import { useState } from "react";
 import Select from "react-select";
 import "./index.css";
 import MODE from "../../constants";
-import {create, update} from "../../utils";
+import {create, update, deleteCategory} from "../../utils";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const CategoryFrom = ({data, updateTree, updateStatus}) => {

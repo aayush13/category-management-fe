@@ -45,7 +45,7 @@ export function update(apiUrl, categoryName,selectedCategory,docToUpdate, update
 
 export function deleteCategory(apiUrl,selectedCategory, updateTree,updateStatus) {
     fetch(
-        `${apiUrl}/delete/${selectedCategory.value}`,
+        `${apiUrl}/delete/${selectedCategory}`,
         {
           method: "DELETE",
           headers: {
